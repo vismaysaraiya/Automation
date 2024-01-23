@@ -1,0 +1,12 @@
+load)--page loaded--
+(new url)https://automationexercise.com/contact_us
+(xhr)GET 200 https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true
+(xhr)GET 200 https://pagead2.googlesyndication.com/getconfig/sodar?sv=200&tid=gda&tv=r20240118&st=env
+3
+findByTextGet In Touch
+4
+assertexpected <h2.title.text-center> to exist in the DOM
+5
+findByPlaceholderTextName
+6
+typecrest user

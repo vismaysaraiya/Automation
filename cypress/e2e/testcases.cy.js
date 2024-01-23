@@ -162,15 +162,22 @@ describe ('Testcases', function() {
         cy.findByPlaceholderText("Your Message Here").type("Test Message")
 
         // Upload file
-       
+        cy.get('[name=upload_file]').attachFile('upload.txt');
+        
         // Click 'Submit' button
-   
-        // Click OK button
-   
+        cy.get('[data-qa=submit-button]').click()
+           
         // Verify success message 'Success! Your details have been submitted successfull.' is visible
-   
+    
+        cy.get('[id=contact-page]').contains('Success! Your details have been submitted successfully.')
+        
         // Click 'Home' button and verify that landed to home page successfully
-   
+        //cy.get("a[href='/']").click()
+        cy.contains('Home').click()
+        cy.findByText('Category').should('exist')
+        cy.findByText('Features Items').should('exist')
+        cy.findByText('Brands').should('exist')
+
     })
 
 })
