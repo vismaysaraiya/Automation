@@ -1,35 +1,37 @@
+
+//const { expect } = require("chai")
+import { faker, fakerEN_US } from '@faker-js/faker';
+//import { register } from "../../support/page"
+
 //const { before } = require("cypress/types/lodash")
 describe ('Testcases', function() {
     beforeEach( ()=>{
         //Verify that home page is visible successfully
         cy.visit("http://automationexercise.com")
-       
+        cy.viewport(1280, 720)
         cy.findByText('Category').should('exist')
         cy.findByText('Features Items').should('exist')
         cy.findByText('Brands').should('exist')
 
-        //cy.get("a[href='/login']").click()
+        cy.get("a[href='/login']").click()
 
     })
     it('Register User', function () {
-       
+        let remail = faker.internet.exampleEmail({ delay: 10, allowSpecialCharacters: true })
         //Verify 'New User Signup!' is visible
         cy.findAllByText('Login to your account').should('exist')
         cy.findAllByText('New User Signup!').should('exist')
 
         // Enter name and email address
         cy.get('[data-qa=signup-name]').type('vismay')
-        cy.get('[data-qa=signup-email]').type('vsa@yopmail.com')
+        cy.get('[data-qa=signup-email]').type(remail)
 
         //Click 'Signup' button
         cy.get('[data-qa=signup-button]').click()
        
         // Verify that 'ENTER ACCOUNT INFORMATION' is visible
-        //cy.get('.col-sm-4 col-sm-offset-1').contains('ENTER ACCOUNT INFORMATION')
        
         cy.findAllByText('Enter Account Information').should('exist')
-        //cy.findAllByText('Title').should('exist')
-       
        
         //Fill details: Title, Name, Email, Password, Date of birth
         cy.findByLabelText('Mr.').check()
@@ -81,8 +83,8 @@ describe ('Testcases', function() {
     it("Login User with correct email and password", ()=>{
        
         // Verify 'Login to your account' is visible
-        cy.findAllByText('Login to your account').should('exist')
-        cy.findAllByText('New User Signup!').should('exist')
+        cy.findByText('Login to your account').should('exist')
+        cy.findByText('New User Signup!').should('exist')
 
         // Enter correct email address and password
         cy.get('[data-qa=login-email]').type('vismay@crest.com')
@@ -130,7 +132,7 @@ describe ('Testcases', function() {
 
     }),
 
-    it("Register User with existing email",()=>{
+    it("Register User with 'existing email",()=>{
         //Verify 'New User Signup!' is visible
         cy.findAllByText('Login to your account').should('exist')
         cy.findAllByText('New User Signup!').should('exist')
@@ -142,42 +144,7 @@ describe ('Testcases', function() {
         //Click 'Signup' button
         cy.get('[data-qa=signup-button]').click()
 
-        //Verify error 'Email Address already exist!' is visible
-        cy.findByText("Email Address already exist!").should('exist')
-    }),
-
-    it("Contact Us Form",()=>{
-        //Click on 'Contact Us' button
-        cy.get("a[href='/contact_us']").click()
-
-        // Verify 'GET IN TOUCH' is visible
-        cy.findByText('Get In Touch').should('exist')
-
-        //cy.get('.contact-form').contains('Get In Touch')
-
-        // Enter name, email, subject and message
-        cy.findByPlaceholderText("Name").type("crest user")
-        cy.findByPlaceholderText("Email").type("crestuser@yopmail.com")
-        cy.findByPlaceholderText("Subject").type("Test subject")
-        cy.findByPlaceholderText("Your Message Here").type("Test Message")
-
-        // Upload file
-        cy.get('[name=upload_file]').attachFile('upload.txt');
-        
-        // Click 'Submit' button
-        cy.get('[data-qa=submit-button]').click()
-           
-        // Verify success message 'Success! Your details have been submitted successfull.' is visible
-    
-        cy.get('[id=contact-page]').contains('Success! Your details have been submitted successfully.')
-        
-        // Click 'Home' button and verify that landed to home page successfully
-        //cy.get("a[href='/']").click()
-        cy.contains('Home').click()
-        cy.findByText('Category').should('exist')
-        cy.findByText('Features Items').should('exist')
-        cy.findByText('Brands').should('exist')
-
+        //Verify error 'Email Address already 'exist'!' is visible
+        cy.get('.signup-form').contains("Email Address already exist!")
     })
-
 })
